@@ -1,3 +1,8 @@
+if (typeof SharedArrayBuffer !== 'function' || typeof Atomics !== 'object') {
+    document.getElementById('output').textContent = 'This browser does not support SharedArrayBuffers';
+    return;
+}
+
 const worker = new Worker('worker.js');
 worker.addEventListener('message', function (event) {
     document.getElementById('output').textContent = event.data;
