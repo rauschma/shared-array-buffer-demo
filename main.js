@@ -1,3 +1,5 @@
+(function () { // BEGIN iife
+
 if (typeof SharedArrayBuffer !== 'function' || typeof Atomics !== 'object') {
     document.getElementById('output').textContent = 'This browser does not support SharedArrayBuffers';
     return;
@@ -23,3 +25,5 @@ worker.postMessage({sharedBuffer}, [sharedBuffer]);
 
 // New API: clone
 // worker.postMessage({sharedBuffer});
+
+})(); // END iife
