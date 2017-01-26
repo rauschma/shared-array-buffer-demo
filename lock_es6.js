@@ -43,12 +43,17 @@ class Lock {
         const iab = this.iab;
         const stateIdx = this.ibase;
         var c;
-        if ((c = Atomics.compareExchange(iab, stateIdx, UNLOCKED, LOCKED_NO_WAITERS)) !== UNLOCKED) {
+        if ((c = Atomics.compareExchange(iab, stateIdx,
+        UNLOCKED, LOCKED_NO_WAITERS)) !== UNLOCKED) {
             do {
-                if (c === LOCKED_POSSIBLE_WAITERS || Atomics.compareExchange(iab, stateIdx, LOCKED_NO_WAITERS, LOCKED_POSSIBLE_WAITERS) !== UNLOCKED) {
-                    Atomics.wait(iab, stateIdx, LOCKED_POSSIBLE_WAITERS, Number.POSITIVE_INFINITY);
+                if (c === LOCKED_POSSIBLE_WAITERS
+                || Atomics.compareExchange(iab, stateIdx,
+                LOCKED_NO_WAITERS, LOCKED_POSSIBLE_WAITERS) !== UNLOCKED) {
+                    Atomics.wait(iab, stateIdx,
+                        LOCKED_POSSIBLE_WAITERS, Number.POSITIVE_INFINITY);
                 }
-            } while ((c = Atomics.compareExchange(iab, stateIdx, UNLOCKED, LOCKED_POSSIBLE_WAITERS)) !== UNLOCKED);
+            } while ((c = Atomics.compareExchange(iab, stateIdx,
+            UNLOCKED, LOCKED_POSSIBLE_WAITERS)) !== UNLOCKED);
         }
     }
 
